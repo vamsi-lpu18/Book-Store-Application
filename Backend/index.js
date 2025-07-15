@@ -14,13 +14,13 @@ app.use(express.json());
 dotenv.config();
 
 const PORT = process.env.PORT || 4000;
-const URI = process.env.MongoDBURI;
+// Use the environment variable if set, otherwise use the provided Atlas connection string
+const URI = process.env.MongoDBURI || "mongodb+srv://vamsi:80P448cgte@cluster0.pyzargz.mongodb.net/";
 
 // connect to mongoDB
 try {
     mongoose.connect(URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
+        // useNewUrlParser and useUnifiedTopology are no longer needed in Mongoose 6+
     });
     console.log("Connected to mongoDB");
 } catch (error) {
