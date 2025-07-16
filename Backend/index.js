@@ -14,8 +14,7 @@ app.use(express.json());
 dotenv.config();
 
 const PORT = process.env.PORT || 4000;
-// Use the environment variable if set, otherwise use the provided Atlas connection string
-const URI = process.env.MongoDBURI || "mongodb+srv://vamsi:80P448cgte@cluster0.pyzargz.mongodb.net/";
+const URI = process.env.MONGODB_URI || "mongodb://localhost:27017/bookstore";
 
 // connect to mongoDB
 try {

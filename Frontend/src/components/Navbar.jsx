@@ -3,8 +3,9 @@ import { useState } from "react";
 import Login from "./Login";
 import Logout from "./Logout";
 import { useAuth } from "../context/AuthProvider";
+import { Link } from "react-router-dom";
 
-function Navbar() {
+function Navbar({ search, setSearch }) {
   const [authUser, setAuthUser] = useAuth();
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
@@ -39,16 +40,16 @@ function Navbar() {
   const navItems = (
     <>
       <li>
-        <a href="/">Home</a>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <a href="/course">Course</a>
+        <Link to="/course">Course</Link>
       </li>
       <li>
-        <a>Contact</a>
+        <Link to="/contact">Contact</Link>
       </li>
       <li>
-        <a>About</a>
+        <Link to="/about">About</Link>
       </li>
     </>
   );
@@ -103,6 +104,8 @@ function Navbar() {
                   type="text"
                   className="grow outline-none rounded-md px-1 dark:bg-slate-900 dark:text-white"
                   placeholder="Search"
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

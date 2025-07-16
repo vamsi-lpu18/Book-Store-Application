@@ -7,7 +7,7 @@ import Slider from "react-slick";
 import axios from "axios";
 
 import Cards from "./Cards";
-function Freebook() {
+function Freebook({ search = "" }) {
   const [book, setBook] = useState([]);
   useEffect(() => {
     const getBook = async () => {
@@ -15,7 +15,6 @@ function Freebook() {
         const res = await axios.get("http://localhost:4001/book");
 
         const data = res.data.filter((data) => data.category === "Free");
-        console.log(data);
         setBook(data);
       } catch (error) {
         console.log(error);
@@ -23,6 +22,12 @@ function Freebook() {
     };
     getBook();
   }, []);
+
+  // Filter books by search term
+  const filteredBooks = book.filter(item =>
+    item.name.toLowerCase().includes(search.toLowerCase()) ||
+    item.title.toLowerCase().includes(search.toLowerCase())
+  );
 
   var settings = {
     dots: true,
@@ -72,7 +77,7 @@ function Freebook() {
 
         <div>
           <Slider {...settings}>
-            {book.map((item) => (
+            {filteredBooks.map((item) => (
               <Cards item={item} key={item.id} />
             ))}
           </Slider>
